@@ -7,7 +7,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 
 public class Bagel extends Hero {
-
+    protected boolean collideProp = false;
     protected static final double SPRITE_PIXELS_X = 81;
     protected static final double SPRITE_PIXELS_Y = 81;
     protected static final double rightBoundary = WIDTH - SPRITE_PIXELS_X;
@@ -26,11 +26,16 @@ public class Bagel extends Hero {
 
     @Override
     public void update() {
+        collideProp = false;
         setXYLocation();
         setBoundaries();
         setImageState();
         moveInvinciBagel(iX, iY);
         checkCollision();
+        if (collideProp){
+            setXYLocationIfCollide();
+        }
+
     }
 
     @Override
@@ -52,6 +57,13 @@ public class Bagel extends Hero {
         if(invinciBagel.isLeft()) { iX -= vX * 2; }
         if(invinciBagel.isDown()) { iY += vY * 2; }
         if(invinciBagel.isUp()) { iY -= vY * 2; }
+    }
+
+    private void setXYLocationIfCollide() {
+        if(invinciBagel.isRight()) { iX -= vX * 2; }
+        if(invinciBagel.isLeft()) { iX += vX * 2; }
+        if(invinciBagel.isDown()) { iY -= vY * 2; }
+        if(invinciBagel.isUp()) { iY += vY * 2; }
     }
 
     private void setImageState() {
@@ -108,7 +120,6 @@ public class Bagel extends Hero {
         spriteFrame.setTranslateY(y);
     }
 
-
     private void setBoundaries() {
         if (iX > rightBoundary) { iX = rightBoundary; }
         if (iX < leftBoundary) { iX = leftBoundary; }
@@ -121,32 +132,44 @@ public class Bagel extends Hero {
             Actor object = invinciBagel.castDirector.getCurrentCast().get(i);
 
             if(collide(object)) {
-                invinciBagel.castDirector.addToRemovedActors(object);
+                if (object instanceof Prop) {
+                    collideProp = true;
+                }
+
+               /* invinciBagel.castDirector.addToRemovedActors(object);
                 invinciBagel.root.getChildren().remove(object.getSpriteFrame());
-                invinciBagel.castDirector.resetRemovedActors();
-                scoringEngine(object);
+                invinciBagel.castDirector.resetRemovedActors();*/
+                //scoringEngine(object);
             }
         }
     }
 
-    private void scoringEngine(Actor object) {
+  /*  private void scoringEngine(Actor object) {
         if(object instanceof Prop) {
             invinciBagel.gameScore -= 1;
+            invinciBagel.playiSound0();
         } else if(object instanceof PropV) {
             invinciBagel.gameScore -= 2;
+            invinciBagel.playiSound1();
         } else if(object instanceof PropH) {
             invinciBagel.gameScore -= 1;
+            invinciBagel.playiSound2();
         } else if(object instanceof PropB) {
             invinciBagel.gameScore -= 2;
+            invinciBagel.playiSound3();
         } else if(object instanceof Treasure) {
             invinciBagel.gameScore += 5;
+            invinciBagel.playiSound4();
         } else if(object.equals(invinciBagel.iBullet)) {
             invinciBagel.gameScore -= 5;
+            invinciBagel.playiSound5();
         } else if(object.equals(invinciBagel.iCheese)) {
             invinciBagel.gameScore += 5;
+            invinciBagel.playiSound0();
         } else if(object.equals(invinciBagel.iBeagle)) {
             invinciBagel.gameScore += 10;
+            invinciBagel.playiSound0();
         }
         invinciBagel.scoreText.setText(String.valueOf(invinciBagel.gameScore));
-    }
+    }*/
 }

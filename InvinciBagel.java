@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class InvinciBagel extends Application {
-    static final double WIDTH = 640, HEIGHT = 400;
+    static final double WIDTH = 800, HEIGHT = 800;
     int gameScore = 0;
     Text scoreText, scoreLabel;
     private Font scoreFont;
@@ -29,7 +29,7 @@ public class InvinciBagel extends Application {
     Bagel iBagel;
     Enemy iBeagle;
     Projectile iBullet, iCheese;
-    Prop iPR0, iPR1;
+    Prop iPR0, iPR1, iPR2, iPR3, iPR4, iPR5, iPR6, iPR7, iPR8;
     PropH iPH0;
     PropV iPV0, iPV1;
     PropB iPB0;
@@ -47,9 +47,11 @@ public class InvinciBagel extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Stage");
         root = new Group();
-        scene = new Scene(root, WIDTH, HEIGHT, Color.WHITE);
+        scene = new Scene(root, WIDTH, HEIGHT, Color.GREEN);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
         createSceneEventHandling();
         loadImageAssets();
         createGameActors();
@@ -230,34 +232,44 @@ public class InvinciBagel extends Application {
         });
     }
     private void loadImageAssets() {
-        /*splashScreen = new Image("/invincibagelsplash.png", 640, 400, true, false, true);
-        instructionLayer = new Image("/invincibagelinstruct.png", 640, 400, true, false, true);
-        legalLayer = new Image("/invincibagelcreds.png", 640, 400, true, false, true);
-        scoresLayer = new Image("/invincibagelscores.png", 640, 400, true, false, true);*/
-        iB0 = new Image("/sprite0.png", 81, 81, true, false, true);
-        iB1 = new Image("/sprite1.png", 81, 81, true, false, true);
-        iB2 = new Image("/sprite2.png", 81, 81, true, false, true);
-        iB3 = new Image("/sprite3.png", 81, 81, true, false, true);
-        iB4 = new Image("/sprite4.png", 81, 81, true, false, true);
-        iB5 = new Image("/sprite5.png", 81, 81, true, false, true);
-        iB6 = new Image("/sprite6.png", 81, 81, true, false, true);
-        iB7 = new Image("/sprite7.png", 81, 81, true, false, true);
-        iB8 = new Image("/sprite8.png", 81, 81, true, false, true);
-        iP0 = new Image("/prop0.png", 100, 100, true, false, true);
-        iT0 = new Image("/treasure1.png", 100, 100, true, false, true);
-        iT1 = new Image("/treasure2.png", 64, 64, true, false, true);
-        iE0 = new Image("/enemy.png", 70, 116, true, false, true);
-        iC0 = new Image("/bullet.png", 64, 24, true, false, true);
-        iC1 = new Image("/cheese.png", 32, 29, true, false, true);
-        skyCloud = new Image("/skycloud.png", 640, 400, true, false, true);
+        iP0 = new Image("/prop0.png", 80, 80, false, false, true);
+
+        iB0 = new Image("/sprite0.png", 81, 81, false, false, true);
+        iB1 = new Image("/sprite1.png", 81, 81, false, false, true);
+        iB2 = new Image("/sprite2.png", 81, 81, false, false, true);
+        iB3 = new Image("/sprite3.png", 81, 81, false, false, true);
+        iB4 = new Image("/sprite4.png", 81, 81, false, false, true);
+        iB5 = new Image("/sprite5.png", 81, 81, false, false, true);
+        iB6 = new Image("/sprite6.png", 81, 81, false, false, true);
+        iB7 = new Image("/sprite7.png", 81, 81, false, false, true);
+        iB8 = new Image("/sprite8.png", 81, 81, false, false, true);
+
+        iT0 = new Image("/treasure1.png", 100, 100, false, false, true);
+        iT1 = new Image("/treasure2.png", 64, 64, false, false, true);
+        iE0 = new Image("/enemy.png", 70, 116, false, false, true);
+        iC0 = new Image("/bullet.png", 64, 24, false, false, true);
+        iC1 = new Image("/cheese.png", 32, 29, false, false, true);
+        skyCloud = new Image("/skycloud.png", 640, 400, false, false, true);
     }
 
     private void createGameActors() {
         iBagel = new Bagel(this,
                 "M58,8 L58,8 43,24 32,28 32,41 18,41 28,54 40,61 35,73 41,79 45,54 55,39 65,40 69,25 Z",
                 WIDTH/2, HEIGHT/2, iB0, iB1, iB2, iB3, iB4, iB5, iB6, iB7, iB8);
-        iPR0 = new Prop("M0,0 L0,32 72,32 72,0 Z", 30, 48, iP0);
-        iPH0 = new PropH("M0,0 L0,32 72,32 72,0 Z", 172, 248, iP0);
+        iPR0 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 0, iP0);
+        iPR1 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 80, iP0);
+        iPR2 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 160, iP0);
+        iPR3 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 240, iP0);
+        iPR4 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 320, iP0);
+        iPR5 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 400, iP0);
+        iPR6 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 480, iP0);
+
+
+        ///
+
+
+
+        iPH0 = new PropH("M0,0 L0,32 72,32 72,0 Z", 0, 80, iP0);
         iPV0 = new PropV("M0,0 L0,32 72,32 72,0 Z", 396, 116, iP0);
         iPB0 = new PropB("M0,0 L0,32 72,32 72,0 Z", 512, 316, iP0);
         iTR0 = new Treasure("M0 0 L0 64 64 64 64 0 Z", 50, 105, iT0);
@@ -271,14 +283,21 @@ public class InvinciBagel extends Application {
     }
 
     private void addGameActorNodes() {
+        // add prop
         root.getChildren().add(iPR0.spriteFrame);
-        //root.getChildren().add(iPR1.spriteFrame);
+        root.getChildren().add(iPR1.spriteFrame);
+        root.getChildren().add(iPR2.spriteFrame);
+        root.getChildren().add(iPR3.spriteFrame);
+        root.getChildren().add(iPR4.spriteFrame);
+        root.getChildren().add(iPR5.spriteFrame);
+        root.getChildren().add(iPR6.spriteFrame);
+        //
         root.getChildren().add(iPH0.spriteFrame);
         root.getChildren().add(iPV0.spriteFrame);
         //root.getChildren().add(iPV1.spriteFrame);
         root.getChildren().add(iPB0.spriteFrame);
-        root.getChildren().add(iTR0.spriteFrame);
-        root.getChildren().add(iTR1.spriteFrame);
+        //root.getChildren().add(iTR0.spriteFrame);
+        //root.getChildren().add(iTR1.spriteFrame);
         root.getChildren().add(iBullet.spriteFrame);
         root.getChildren().add(iCheese.spriteFrame);
         root.getChildren().add(iBeagle.spriteFrame);
@@ -287,7 +306,7 @@ public class InvinciBagel extends Application {
 
     private void createCastingDirection() {
         castDirector = new CastingDirector();
-        castDirector.addCurrentCast(iPR0, iPH0, iPV0, iPB0, iTR0, iTR1, iBeagle, iBullet, iCheese);
+        castDirector.addCurrentCast(iPR0, iPR1, iPR2, iPR3, iPR4, iPR5, iPR6, iPH0, iPV0, iPB0);
     }
 
 
