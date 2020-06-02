@@ -4,15 +4,15 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 
 public class GamePlayLoop extends AnimationTimer {
-    protected InvinciBagel invinciBagel;
+    protected Main main;
     Pos location;
     @Override
     public void handle(long now) {
-        invinciBagel.iBagel.update();
-        invinciBagel.iBeagle.update();
+        main.main.update();
+        main.iBeagle.update();
     }
-    public GamePlayLoop(InvinciBagel iBagel){
+    public GamePlayLoop(Main main){
         super();
-        this.invinciBagel = iBagel;
+        this.main = main;
     }
 }

@@ -1,12 +1,12 @@
 package sample;
 
-import static sample.InvinciBagel.HEIGHT;
-import static sample.InvinciBagel.WIDTH;
+import static sample.Main.HEIGHT;
+import static sample.Main.WIDTH;
 import javafx.scene.image.Image;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 
-public class Bagel extends Hero {
+public class MainCharacter extends Hero {
     protected boolean collideProp = false;
     protected static final double SPRITE_PIXELS_X = 81;
     protected static final double SPRITE_PIXELS_Y = 81;
@@ -14,14 +14,14 @@ public class Bagel extends Hero {
     protected static final double leftBoundary = 0;
     protected static final double bottomBoundary = HEIGHT - SPRITE_PIXELS_Y;
     protected static final double topBoundary = 0;
-    protected InvinciBagel invinciBagel;
+    protected Main main;
     private boolean animator = false;
     private byte framecounter = 0;
     private byte runningspeed = 6;
 
-    public Bagel(InvinciBagel iBagel, String SVGdata, double xLocation, double yLocation, Image... spriteCels) {
+    public MainCharacter(Main main, String SVGdata, double xLocation, double yLocation, Image... spriteCels) {
         super(SVGdata, xLocation, yLocation, spriteCels);
-        this.invinciBagel = iBagel;
+        this.main = main;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Bagel extends Hero {
         setXYLocation();
         setBoundaries();
         setImageState();
-        moveInvinciBagel(iX, iY);
+        movemain(iX, iY);
         checkCollision();
         if (collideProp){
             setXYLocationIfCollide();
@@ -42,8 +42,8 @@ public class Bagel extends Hero {
     public boolean collide(Actor object) {
         boolean collisionDetect = false;
 
-        if(invinciBagel.iBagel.spriteFrame.getBoundsInParent().intersects(object.getSpriteFrame().getBoundsInParent())) {
-            Shape intersection = SVGPath.intersect(invinciBagel.iBagel.getSpriteBound(), object.getSpriteBound());
+        if(main.main.spriteFrame.getBoundsInParent().intersects(object.getSpriteFrame().getBoundsInParent())) {
+            Shape intersection = SVGPath.intersect(main.main.getSpriteBound(), object.getSpriteBound());
             if(intersection.getBoundsInLocal().getWidth() != -1) {
                 collisionDetect = true;
             }
@@ -53,32 +53,31 @@ public class Bagel extends Hero {
     }
 
     private void setXYLocation() {
-        if(invinciBagel.isRight()) { iX += vX * 2; }
-        if(invinciBagel.isLeft()) { iX -= vX * 2; }
-        if(invinciBagel.isDown()) { iY += vY * 2; }
-        if(invinciBagel.isUp()) { iY -= vY * 2; }
+        if(main.isRight()) { iX += vX * 2; }
+        if(main.isLeft()) { iX -= vX * 2; }
+        if(main.isDown()) { iY += vY * 2; }
+        if(main.isUp()) { iY -= vY * 2; }
     }
 
     private void setXYLocationIfCollide() {
-        if(invinciBagel.isRight()) { iX -= vX * 2; }
-        if(invinciBagel.isLeft()) { iX += vX * 2; }
-        if(invinciBagel.isDown()) { iY -= vY * 2; }
-        if(invinciBagel.isUp()) { iY += vY * 2; }
+        if(main.isRight()) { iX -= vX * 2; }
+        if(main.isLeft()) { iX += vX * 2; }if(main.isDown()) { iY -= vY * 2; }
+        if(main.isUp()) { iY += vY * 2; }
     }
 
     private void setImageState() {
-        if (!invinciBagel.isDown() &&
-                !invinciBagel.isUp() &&
-                !invinciBagel.isLeft() &&
-                !invinciBagel.isRight()) {
+        if (!main.isDown() &&
+                !main.isUp() &&
+                !main.isLeft() &&
+                !main.isRight()) {
             spriteFrame.setImage(imageStates.get(0));
             animator = false;
             framecounter = 0;
         }
-        if (invinciBagel.isRight()) {
+        if (main.isRight()) {
             spriteFrame.setScaleX(1);
             this.setIsFlipH(false);
-            if (!invinciBagel.isUp() && !invinciBagel.isDown()) {
+            if (!main.isUp() && !main.isDown()) {
                 if (animator) {
                     spriteFrame.setImage(imageStates.get(2));
                 } else {
@@ -92,10 +91,10 @@ public class Bagel extends Hero {
                 }
             }
         }
-        if (invinciBagel.isLeft()) {
+        if (main.isLeft()) {
             spriteFrame.setScaleX(-1);
             this.setIsFlipH(true);
-            if (!invinciBagel.isUp() && !invinciBagel.isDown()) {
+            if (!main.isUp() && !main.isDown()) {
                 if (animator) {
                     spriteFrame.setImage(imageStates.get(2));
                 } else {
@@ -109,13 +108,13 @@ public class Bagel extends Hero {
                 }
             }
         }
-        if (invinciBagel.isDown()) { spriteFrame.setImage(imageStates.get(6)); }
-        if (invinciBagel.isUp()) { spriteFrame.setImage(imageStates.get(4)); }
-        if (invinciBagel.iswKey()) { spriteFrame.setImage(imageStates.get(5)); }
-        if (invinciBagel.issKey()) { spriteFrame.setImage(imageStates.get(8)); }
+        if (main.isDown()) { spriteFrame.setImage(imageStates.get(6)); }
+        if (main.isUp()) { spriteFrame.setImage(imageStates.get(4)); }
+        if (main.iswKey()) { spriteFrame.setImage(imageStates.get(5)); }
+        if (main.issKey()) { spriteFrame.setImage(imageStates.get(8)); }
     }
 
-    private void moveInvinciBagel(double x, double y) {
+    private void movemain(double x, double y) {
         spriteFrame.setTranslateX(x);
         spriteFrame.setTranslateY(y);
     }
@@ -128,17 +127,17 @@ public class Bagel extends Hero {
     }
 
     public void checkCollision() {
-        for(int i=0; i<invinciBagel.castDirector.getCurrentCast().size(); i++) {
-            Actor object = invinciBagel.castDirector.getCurrentCast().get(i);
+        for(int i=0; i<main.castDirector.getCurrentCast().size(); i++) {
+            Actor object = main.castDirector.getCurrentCast().get(i);
 
             if(collide(object)) {
                 if (object instanceof Prop) {
                     collideProp = true;
                 }
 
-               /* invinciBagel.castDirector.addToRemovedActors(object);
-                invinciBagel.root.getChildren().remove(object.getSpriteFrame());
-                invinciBagel.castDirector.resetRemovedActors();*/
+               /* main.castDirector.addToRemovedActors(object);
+                main.root.getChildren().remove(object.getSpriteFrame());
+                main.castDirector.resetRemovedActors();*/
                 //scoringEngine(object);
             }
         }
@@ -146,30 +145,30 @@ public class Bagel extends Hero {
 
   /*  private void scoringEngine(Actor object) {
         if(object instanceof Prop) {
-            invinciBagel.gameScore -= 1;
-            invinciBagel.playiSound0();
+            main.gameScore -= 1;
+            main.playiSound0();
         } else if(object instanceof PropV) {
-            invinciBagel.gameScore -= 2;
-            invinciBagel.playiSound1();
+            main.gameScore -= 2;
+            main.playiSound1();
         } else if(object instanceof PropH) {
-            invinciBagel.gameScore -= 1;
-            invinciBagel.playiSound2();
+            main.gameScore -= 1;
+            main.playiSound2();
         } else if(object instanceof PropB) {
-            invinciBagel.gameScore -= 2;
-            invinciBagel.playiSound3();
+            main.gameScore -= 2;
+            main.playiSound3();
         } else if(object instanceof Treasure) {
-            invinciBagel.gameScore += 5;
-            invinciBagel.playiSound4();
-        } else if(object.equals(invinciBagel.iBullet)) {
-            invinciBagel.gameScore -= 5;
-            invinciBagel.playiSound5();
-        } else if(object.equals(invinciBagel.iCheese)) {
-            invinciBagel.gameScore += 5;
-            invinciBagel.playiSound0();
-        } else if(object.equals(invinciBagel.iBeagle)) {
-            invinciBagel.gameScore += 10;
-            invinciBagel.playiSound0();
+            main.gameScore += 5;
+            main.playiSound4();
+        } else if(object.equals(main.iBullet)) {
+            main.gameScore -= 5;
+            main.playiSound5();
+        } else if(object.equals(main.iCheese)) {
+            main.gameScore += 5;
+            main.playiSound0();
+        } else if(object.equals(main.iBeagle)) {
+            main.gameScore += 10;
+            main.playiSound0();
         }
-        invinciBagel.scoreText.setText(String.valueOf(invinciBagel.gameScore));
+        main.scoreText.setText(String.valueOf(main.gameScore));
     }*/
 }

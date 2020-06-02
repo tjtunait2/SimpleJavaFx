@@ -19,17 +19,17 @@ public class Enemy extends Actor{
     int spriteMoveR, spriteMoveL, destination;
     int randomLocation, bulletRange, bulletOffset;
     double randomOffset, bulletGravity = 0.2, cheeseGravity = 0.1;
-    InvinciBagel invinciBagel;
+    Main main;
     int iBagelLocation;
 
-    public Enemy(InvinciBagel iBagel, String SVGdata, double xLocation, double yLocation, Image... spriteCels) {
+    public Enemy(Main main, String SVGdata, double xLocation, double yLocation, Image... spriteCels) {
         super(SVGdata, xLocation, yLocation, spriteCels);
-        invinciBagel = iBagel;
+        main = main;
         spriteFrame.setTranslateX(xLocation);
         spriteFrame.setTranslateY(yLocation);
-        isAlive = true;
+       /* isAlive = true;
         isBonus = true;
-        hasValu = true;
+        hasValu = true;*/
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Enemy extends Actor{
                 spriteMoveR = 700;
                 spriteMoveL = -70;
                 randomLocation = randomNum.nextInt(attackBoundary);
-                iBagelLocation = (int) invinciBagel.iBagel.getiY();
+                iBagelLocation = (int) main.main.getiY();
                 bulletType = randomNum.nextBoolean();
                 if(bulletType) {
                     spriteFrame.setTranslateY(randomLocation);
@@ -71,7 +71,7 @@ public class Enemy extends Actor{
     private void initiateAttack() {
         if(!takeSides) {
             spriteFrame.setScaleX(1);
-            setIsFlipH(false);
+            //setIsFlipH(false);
             if(!onScreen) {
                 destination = 500;
                 if(spriteMoveR >= destination) {
@@ -101,7 +101,7 @@ public class Enemy extends Actor{
         }
         if(takeSides) {
             spriteFrame.setScaleX(-1);
-            setIsFlipH(true);
+            //setIsFlipH(true);
             if(!onScreen) {
                 destination = 100;
                 if(spriteMoveL <= destination) {
@@ -133,52 +133,52 @@ public class Enemy extends Actor{
 
     private void shootProjectile() {
         if(!bulletType && !takeSides) {
-            invinciBagel.iBullet.spriteFrame.setTranslateY(randomOffset);
-            invinciBagel.iBullet.spriteFrame.setScaleX(-0.5);
-            invinciBagel.iBullet.spriteFrame.setScaleY(0.5);
+            main.iBullet.spriteFrame.setTranslateY(randomOffset);
+            main.iBullet.spriteFrame.setScaleX(-0.5);
+            main.iBullet.spriteFrame.setScaleY(0.5);
             bulletRange = -50;
             if(bulletOffset >= bulletRange) {
                 bulletOffset -= 6;
-                invinciBagel.iBullet.spriteFrame.setTranslateX(bulletOffset);
+                main.iBullet.spriteFrame.setTranslateX(bulletOffset);
                 randomOffset = randomOffset + bulletGravity;
             } else {
                 shootBullet = false;
             }
         }
         if(!bulletType && takeSides) {
-            invinciBagel.iBullet.spriteFrame.setTranslateY(randomOffset);
-            invinciBagel.iBullet.spriteFrame.setScaleX(0.5);
-            invinciBagel.iBullet.spriteFrame.setScaleY(0.5);
+            main.iBullet.spriteFrame.setTranslateY(randomOffset);
+            main.iBullet.spriteFrame.setScaleX(0.5);
+            main.iBullet.spriteFrame.setScaleY(0.5);
             bulletRange = 624;
             if(bulletOffset <= bulletRange) {
                 bulletOffset += 6;
-                invinciBagel.iBullet.spriteFrame.setTranslateX(bulletOffset);
+                main.iBullet.spriteFrame.setTranslateX(bulletOffset);
                 randomOffset = randomOffset + bulletGravity;
             } else {
                 shootBullet = false;
             }
         }
         if(bulletType && !takeSides) {
-            invinciBagel.iCheese.spriteFrame.setTranslateY(randomOffset);
-            invinciBagel.iCheese.spriteFrame.setScaleX(-0.5);
-            invinciBagel.iCheese.spriteFrame.setScaleY(0.5);
+            main.iCheese.spriteFrame.setTranslateY(randomOffset);
+            main.iCheese.spriteFrame.setScaleX(-0.5);
+            main.iCheese.spriteFrame.setScaleY(0.5);
             bulletRange = -50;
             if(bulletOffset >= bulletRange) {
                 bulletOffset -= 4;
-                invinciBagel.iCheese.spriteFrame.setTranslateX(bulletOffset);
+                main.iCheese.spriteFrame.setTranslateX(bulletOffset);
                 randomOffset = randomOffset + cheeseGravity;
             } else {
                 shootBullet = false;
             }
         }
         if(bulletType && takeSides) {
-            invinciBagel.iCheese.spriteFrame.setTranslateY(randomOffset);
-            invinciBagel.iCheese.spriteFrame.setScaleX(0.5);
-            invinciBagel.iCheese.spriteFrame.setScaleY(0.5);
+            main.iCheese.spriteFrame.setTranslateY(randomOffset);
+            main.iCheese.spriteFrame.setScaleX(0.5);
+            main.iCheese.spriteFrame.setScaleY(0.5);
             bulletRange = 624;
             if(bulletOffset <= bulletRange) {
                 bulletOffset += 4;
-                invinciBagel.iCheese.spriteFrame.setTranslateX(bulletOffset);
+                main.iCheese.spriteFrame.setTranslateX(bulletOffset);
                 randomOffset = randomOffset + cheeseGravity;
             } else {
                 shootBullet = false;
@@ -187,35 +187,35 @@ public class Enemy extends Actor{
     }
 
     private void loadBullet() {
-        for (int i=0; i<invinciBagel.castDirector.getCurrentCast().size(); i++) {
-            Actor object = invinciBagel.castDirector.getCurrentCast().get(i);
-            if(object.equals(invinciBagel.iBullet)) {
+        for (int i=0; i<main.castDirector.getCurrentCast().size(); i++) {
+            Actor object = main.castDirector.getCurrentCast().get(i);
+            if(object.equals(main.iBullet)) {
                 return;
             }
         }
-        invinciBagel.castDirector.addCurrentCast(invinciBagel.iBullet);
-        invinciBagel.root.getChildren().add(invinciBagel.iBullet.spriteFrame);
+        main.castDirector.addCurrentCast(main.iBullet);
+        main.root.getChildren().add(main.iBullet.spriteFrame);
     }
 
     private void loadCheese() {
-        for (int i=0; i<invinciBagel.castDirector.getCurrentCast().size(); i++) {
-            Actor object = invinciBagel.castDirector.getCurrentCast().get(i);
-            if(object.equals(invinciBagel.iCheese)) {
+        for (int i=0; i<main.castDirector.getCurrentCast().size(); i++) {
+            Actor object = main.castDirector.getCurrentCast().get(i);
+            if(object.equals(main.iCheese)) {
                 return;
             }
         }
-        invinciBagel.castDirector.addCurrentCast(invinciBagel.iCheese);
-        invinciBagel.root.getChildren().add(invinciBagel.iCheese.spriteFrame);
+        main.castDirector.addCurrentCast(main.iCheese);
+        main.root.getChildren().add(main.iCheese.spriteFrame);
     }
 
     private void loadEnemy() {
-        for (int i=0; i<invinciBagel.castDirector.getCurrentCast().size(); i++) {
-            Actor object = invinciBagel.castDirector.getCurrentCast().get(i);
-            if(object.equals(invinciBagel.iBeagle)) {
+        for (int i=0; i<main.castDirector.getCurrentCast().size(); i++) {
+            Actor object = main.castDirector.getCurrentCast().get(i);
+            if(object.equals(main.iBeagle)) {
                 return;
             }
         }
-        invinciBagel.castDirector.addCurrentCast(invinciBagel.iBeagle);
-        invinciBagel.root.getChildren().add(invinciBagel.iBeagle.spriteFrame);
+        main.castDirector.addCurrentCast(main.iBeagle);
+        main.root.getChildren().add(main.iBeagle.spriteFrame);
     }
 }

@@ -5,8 +5,8 @@ public class GamePiece {
     private static final String FLAVOR_OF_BAGEL = "Pumpernickel";
     private static final String SIZE_OF_BAGEL = "Mini Bagel";
 
-    public int invinciBagelX = 0;
-    public int invinciBagelY = 0;
+    public int mainX = 0;
+    public int mainY = 0;
     public String bagelOrientation = "side";
     public int lifeIndex = 1000;
     public int hitsIndex = 0;
@@ -15,8 +15,8 @@ public class GamePiece {
     public boolean currentlyMoving = false;
 
     GamePiece() {
-        invinciBagelX = 0;
-        invinciBagelY = 0;
+        mainX = 0;
+        mainY = 0;
         bagelOrientation = "side";
         lifeIndex = 1000;
         hitsIndex = 0;
@@ -27,8 +27,8 @@ public class GamePiece {
 
     GamePiece(int x, int y, String orientation, int lifespan, String direction,
               String movement) {
-        invinciBagelX = x;
-        invinciBagelY = y;
+        mainX = x;
+        mainY = y;
         bagelOrientation = orientation;
         lifeIndex = lifespan;
         hitsIndex = 0;
@@ -37,49 +37,49 @@ public class GamePiece {
         currentlyMoving = false;
     }
 
-    public void moveInvinciBagel(int x, int y) {
+    public void movemain(int x, int y) {
         currentlyMoving = true;
-        invinciBagelX = x;
-        invinciBagelY = y;
+        mainX = x;
+        mainY = y;
     }
 
-    public String getInvinciBagelOrientation() {
+    public String getmainOrientation() {
         return bagelOrientation;
     }
 
-    public void setInvinciBagelOrientation(String orientation) {
+    public void setmainOrientation(String orientation) {
         bagelOrientation = orientation;
     }
 
-    public int getInvinciBagelLifeIndex() {
+    public int getmainLifeIndex() {
         return lifeIndex;
     }
 
-    public void setInvinciBagelLifeIndex(int lifespan) {
+    public void setmainLifeIndex(int lifespan) {
         lifeIndex = lifespan;
     }
 
-    public String getInvinciBagelDirection() {
+    public String getmainDirection() {
         return directionFacing;
     }
 
-    public void setInvinciBagelDirection(String direction) {
+    public void setmainDirection(String direction) {
         directionFacing = direction;
     }
 
-    public int getInvinciBagelHitsIndex() {
+    public int getmainHitsIndex() {
         return hitsIndex;
     }
 
-    public void setInvinciBagelHitsIndex(int damage) {
+    public void setmainHitsIndex(int damage) {
         hitsIndex = damage;
     }
 
-    public String getInvinciBagelMovementType() {
+    public String getmainMovementType() {
         return movementType;
     }
 
-    public void setInvinciBagelMovementType(String movement) {
+    public void setmainMovementType(String movement) {
         movementType = movement;
     }
 }
