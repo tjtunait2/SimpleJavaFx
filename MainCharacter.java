@@ -35,7 +35,6 @@ public class MainCharacter extends Hero {
         if (collideProp){
             setXYLocationIfCollide();
         }
-
     }
 
     @Override
@@ -133,6 +132,9 @@ public class MainCharacter extends Hero {
             if(collide(object)) {
                 if (object instanceof Prop) {
                     collideProp = true;
+                }
+                if (object instanceof Enemy || object instanceof Projectile){
+                    lifeSpan-= 100;
                 }
 
                /* main.castDirector.addToRemovedActors(object);

@@ -22,6 +22,8 @@ public abstract class Actor {
     protected boolean hasValu;
     protected boolean isFlipV;
     protected boolean isFlipH;
+    double w=200;
+    double h=200;
 
     public Actor(String SVGdata, double xLocation, double yLocation, Image... spriteCels) {
         spriteBound = new SVGPath();
@@ -142,6 +144,12 @@ public abstract class Actor {
 
     public void setIsFlipH(boolean isFlipH) {
         this.isFlipH = isFlipH;
+    }
+    public ChaseCollide ChaseCollide(){
+        return new ChaseCollide(iX, iX+w, iY, iY+h);
+    }
+    public boolean IsInRange( Actor main){
+        return ChaseCollide().IsInRange(main.ChaseCollide());
     }
 
     public abstract void update();
