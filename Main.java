@@ -1,7 +1,7 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,22 +39,31 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // create scene 0
-        /*Button playGameButton = new Button("Play");
-        Button howToPlayButton = new Button("How to Play");
-        Button settingButton = new Button("Settings");
-        Button quitButton = new Button("Quit");
-        VBox buttonContainer = new VBox(90);
+        Button playGameButton = new Button("PLAY GAME");
+        playGameButton.setFont(new Font("Candara Bold", 35.5));
 
-        buttonContainer.getChildren().addAll(playGameButton, howToPlayButton, settingButton, quitButton);*/
-        buttonContainer = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Button howToPlayButton = new Button("How to Play");
+        howToPlayButton.setFont(new Font("Candara", 35.5));
+
+        Button settingButton = new Button("Settings");
+        settingButton.setFont(new Font("Candara", 35.5));
+
+        Button quitButton = new Button("Quit");
+        quitButton.setFont(new Font("Candara", 35.5));
+        buttonContainer = new VBox();
+
+        buttonContainer.getChildren().addAll(playGameButton, howToPlayButton, settingButton, quitButton);
+        buttonContainer.setSpacing(50);
+        buttonContainer.setAlignment(Pos.CENTER);
+        //buttonContainer = FXMLLoader.load(getClass().getResource("sample.fxml"));
         scene0 = new Scene(buttonContainer, WIDTH, HEIGHT, Color.BROWN);
         primaryStage.setTitle("RPG Game Team 17");
-        /*playGameButton.setOnAction(actionEvent -> {
+        playGameButton.setOnAction(actionEvent -> {
             primaryStage.setScene(scene);
-        });*/
+        });
         root = new Group();
         scene = new Scene(root, WIDTH, HEIGHT, Color.GREEN);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(scene0);
         primaryStage.show();
         createSceneEventHandling();
         loadImageAssets();
@@ -161,15 +170,15 @@ public class Main extends Application {
         });
     }
     private void loadImageAssets() {
-        iP0 = new Image("/prop0.png", 50, 50, false, false, true);
+        iP0 = new Image("/proper1.png", 50, 50, false, false, true);
 
-        iB0 = new Image("/sprite0.png", 50, 50, false, false, true);
-        iB1 = new Image("/sprite1.png", 50, 50, false, false, true);
-        iB2 = new Image("/sprite2.png", 50, 50, false, false, true);
-        iB3 = new Image("/sprite3.png", 50, 50, false, false, true);
-        iB4 = new Image("/sprite4.png", 50, 50, false, false, true);
-        iB5 = new Image("/sprite5.png", 50, 50, false, false, true);
-        iB6 = new Image("/sprite6.png", 50, 50, false, false, true);
+        iB0 = new Image("/pngegg_1.png", 50, 50, false, false, true);
+        iB1 = new Image("/right2.png", 50, 50, false, false, true);
+        iB2 = new Image("/right1.png", 50, 50, false, false, true);
+        iB3 = new Image("/behind1.png", 50, 50, false, false, true);
+        iB4 = new Image("/behind2.png", 50, 50, false, false, true);
+        iB5 = new Image("/front1.png",50, 50, false, false, true);
+        iB6 = new Image("/front2.png", 50, 50, false, false, true);
         iB7 = new Image("/sprite7.png", 50, 50, false, false, true);
             iB8 = new Image("/sprite8.png", 50, 50, false, false, true);
 
@@ -184,13 +193,9 @@ public class Main extends Application {
                 "M58,8 L58,8 43,24 32,28 32,41 18,41 28,54 40,61 35,73 41,79 45,54 55,39 65,40 69,25 Z",
                 0, 562, iB0, iB1, iB2, iB3, iB4, iB5, iB6, iB7, iB8);
 
-        iPR0 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 0, iP0);
-        iPR1 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 50, iP0);
-        iPR2 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 160, iP0);
-        iPR3 = new Prop("M0,0 L0    ,32 72,32 72,0 Z", 0, 240, iP0);
-        iPR4 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 320, iP0);
-        iPR5 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 400, iP0);
-        iPR6 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 450, iP0);
+        iPR0 = new Prop("M0,0 L0,32 72,32 72,0 Z", 50, 100, iP0);
+        iPR1 = new Prop("M0,0 L0,32 72,32 72,0 Z", 100, 150, iP0);
+        iPR2 = new Prop("M0,0 L0,32 72,32 72,0 Z", 0, 100, iP0);
 
 
         ///
@@ -212,21 +217,20 @@ public class Main extends Application {
         root.getChildren().add(iPR0.spriteFrame);
         root.getChildren().add(iPR1.spriteFrame);
         root.getChildren().add(iPR2.spriteFrame);
-        root.getChildren().add(iPR3.spriteFrame);
-        root.getChildren().add(iPR4.spriteFrame);
-        root.getChildren().add(iPR5.spriteFrame);
-        root.getChildren().add(iPR6.spriteFrame);
+        //.getChildren().add(iPR4.spriteFrame);
+        //root.getChildren().add(iPR5.spriteFrame);
+        //root.getChildren().add(iPR6.spriteFrame);
 
         // add main
         root.getChildren().add(iBeagle.spriteFrame);
         root.getChildren().add(main.spriteFrame);
-        root.getChildren().add(iCheese.spriteFrame);
-        root.getChildren().add(iBullet.spriteFrame);
+        //root.getChildren().add(iCheese.spriteFrame);
+        //root.getChildren().add(iBullet.spriteFrame);
     }
 
     private void createCastingDirection() {
         castDirector = new CastingDirector();
-        castDirector.addCurrentCast(iPR0, iPR1, iPR2, iPR3, iPR4, iPR5, iPR6);
+        castDirector.addCurrentCast(iPR0, iPR1);
     }
 
 
