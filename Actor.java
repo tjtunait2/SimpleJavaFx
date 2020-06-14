@@ -1,11 +1,12 @@
 package sample;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.SVGPath;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Actor {
 
@@ -40,6 +41,11 @@ public abstract class Actor {
         hasValu = false;
         isFlipV = false;
         isFlipH = false;
+    }
+    public Actor(String SVGdata, ImageView spriteFrame){
+        this.spriteBound = new SVGPath();
+        this.spriteBound.setContent(SVGdata);
+        this.spriteFrame = spriteFrame;
     }
 
     public List<Image> getImageStates() {

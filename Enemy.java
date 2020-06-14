@@ -1,7 +1,8 @@
 package sample;
 
-import java.util.Random;
 import javafx.scene.image.Image;
+
+import java.util.Random;
 
 public class Enemy extends Actor{
 
@@ -151,8 +152,8 @@ public class Enemy extends Actor{
             dx=0;
             dy=0;
         }
-        iX+=dx;
-        iY+=dy;
+        iX+=dx/5;
+        iY+=dy/5;
     }
 
 
